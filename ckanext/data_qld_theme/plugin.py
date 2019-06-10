@@ -13,6 +13,23 @@ def get_gtm_code():
 class DataQldThemePlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.ITemplateHelpers)
+    plugins.implements(plugins.IConfigurable, inherit=True)
+
+    def configure(self, config):
+        '''Load config settings for this extension from config file.
+
+        See IConfigurable.
+
+        '''
+        # print ('configure')
+        # import ckan.lib.fanstatic_resources as fanstatic_resources
+        # vendor = getattr(fanstatic_resources, 'vendor')
+        # resource = vendor.known_resources.pop('bootstrap/js/bootstrap.js', None)
+        # print (vars(resource))
+        # print (' ')
+        # vendor = getattr(fanstatic_resources, 'data_qld_theme')
+        # resource = vendor.known_resources.pop('bootstrap/js/bootstrap.js', None)
+        # print (vars(resource))
 
     # IConfigurer
 
