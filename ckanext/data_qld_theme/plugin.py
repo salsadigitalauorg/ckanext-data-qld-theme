@@ -1,5 +1,6 @@
 import ckan.plugins as plugins
 import ckan.plugins.toolkit as toolkit
+import datetime
 
 from ckan.common import config
 
@@ -10,29 +11,15 @@ def get_gtm_code():
     return str(gtm_code)
 
 
+def get_year():
+    now = datetime.datetime.now()
+    return now.year
+
 class DataQldThemePlugin(plugins.SingletonPlugin):
     plugins.implements(plugins.IConfigurer)
     plugins.implements(plugins.ITemplateHelpers)
-    plugins.implements(plugins.IConfigurable, inherit=True)
-
-    def configure(self, config):
-        '''Load config settings for this extension from config file.
-
-        See IConfigurable.
-
-        '''
-        # print ('configure')
-        # import ckan.lib.fanstatic_resources as fanstatic_resources
-        # vendor = getattr(fanstatic_resources, 'vendor')
-        # resource = vendor.known_resources.pop('bootstrap/js/bootstrap.js', None)
-        # print (vars(resource))
-        # print (' ')
-        # vendor = getattr(fanstatic_resources, 'data_qld_theme')
-        # resource = vendor.known_resources.pop('bootstrap/js/bootstrap.js', None)
-        # print (vars(resource))
 
     # IConfigurer
-
     def update_config(self, config_):
         toolkit.add_template_directory(config_, 'templates')
         toolkit.add_public_directory(config_, 'public')
@@ -41,5 +28,6 @@ class DataQldThemePlugin(plugins.SingletonPlugin):
     # ITemplateHelpers
     def get_helpers(self):
         return {
-            'get_gtm_container_id': get_gtm_code
+            'get_gtm_container_id': get_gtm_code,
+            'get_year': get_year,
         }
