@@ -63,6 +63,13 @@ a.btn {
     border-bottom: 2px solid #fff;
 }
 
+.comment-container .form input[type="text"],
+.comment-container .form textarea, .form textarea,
+form#comment_form input[type="text"],
+form#comment_form textarea {
+    max-width: 100%;
+}
+
 .comment {
     position: relative;
     background-color: #fff;
@@ -178,6 +185,11 @@ a.btn {
 
 .comment-container .highlight > .comment.comment-deleted > .comment-header {
     background-color: #f2dede;
+}
+
+.comment-container .form input[type="submit"],
+form#comment_form input[type="submit"] {
+    margin-top: 0;
 }
 
 /**
