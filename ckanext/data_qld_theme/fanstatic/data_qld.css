@@ -12,9 +12,9 @@ a, a:focus, a:hover, a:link, a:visited {
 }
 
 /* Resource Button */
-.resource-btn {
-    background-color: #5bb75b
-}
+/*.resource-btn {*/
+    /*background-color: #5bb75b*/
+/*}*/
 
 /* Resource Icon for API */
 .resource-api-available {
@@ -38,6 +38,24 @@ a, a:focus, a:hover, a:link, a:visited {
 
 a.btn {
     text-decoration: none;
+}
+
+.btn {
+    color: #fff;
+    background-color: #585e62;
+    border-color: #585e62;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #007eb1;
+    border-color: #007eb1;
+}
+
+.btn-success {
+    color: #000;
+    background-color: #78ba00;
+    border-color: #78ba00;
 }
 
 /* Fixes a issue with dataset & resource select or multi-select elements not displaying correctly when using the scheming extension */
