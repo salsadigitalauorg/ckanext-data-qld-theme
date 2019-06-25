@@ -1,17 +1,17 @@
 {% ckan_extends %}
 
-        {%- block resource_last_updated -%}
-          <tr>
-            <th scope="row">{{ _('Last updated') }}</th>
-            <td>{{ h.render_datetime(res.last_modified) or h.render_datetime(res.revision_timestamp) or h.render_datetime(res.created or res.Created) or _('unknown') }}</td>
-          </tr>
-        {%- endblock -%}
-        {%- block resource_created -%}
-          <tr>
-            <th scope="row">{{ _('Created') }}</th>
-            <td>{{ h.render_datetime(res.created or res.Created) or _('unknown') }}</td>
-          </tr>
-        {%- endblock -%}
+{%- block resource_last_updated -%}
+  <tr>
+    <th scope="row">{{ _('Last updated') }}</th>
+    <td>{{ h.render_datetime(res.last_modified) or h.render_datetime(res.revision_timestamp) or h.render_datetime(res.created or res.Created) or _('unknown') }}</td>
+  </tr>
+{%- endblock -%}
+{%- block resource_created -%}
+  <tr>
+    <th scope="row">{{ _('Created') }}</th>
+    <td>{{ h.render_datetime(res.created or res.Created) or _('unknown') }}</td>
+  </tr>
+{%- endblock -%}
 
 {% block resource_additional_information_inner %}
   {% if res.datastore_active %}
@@ -52,6 +52,9 @@
       {%- do exclude_fields.append('validation_options') -%}
       {%- do exclude_fields.append('validation_status') -%}
       {%- do exclude_fields.append('validation_timestamp') -%}
+    {%- endif -%}
+    {%- if 'validation_options' not in res and 'validation_options' not in exclude_fields -%}
+      {%- do exclude_fields.append('validation_options') -%}
     {%- endif -%}
     {%- for field in schema.resource_fields -%}
       {%- if field.field_name not in exclude_fields
