@@ -11,11 +11,6 @@ a, a:focus, a:hover, a:link, a:visited {
     color: #fff;
 }
 
-/* Resource Button */
-/*.resource-btn {*/
-    /*background-color: #5bb75b*/
-/*}*/
-
 /* Resource Icon for API */
 .resource-api-available {
     background-color: #ea6f00;
@@ -243,6 +238,13 @@ form#comment_form textarea {
 .comment-container .form input[type="submit"],
 form#comment_form input[type="submit"] {
     margin-top: 0;
+}
+
+/*
+    Data Requests
+ */
+span.label-open {
+    background-color: #78ba00;
 }
 
 /**
