@@ -24,7 +24,7 @@
     entity_type=entity_type, object_type=object_type -%}
 {%- else -%}
   {%- if field.field_name.lower() == 'url' and field.label.lower() == 'source' -%}
-    Field name '{{field.field_name}}' not applicable
+    Not applicable
   {%- else -%}
     Field name '{{field.field_name}}' not in data
   {%- endif -%}
