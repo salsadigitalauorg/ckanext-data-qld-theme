@@ -23,13 +23,11 @@ def ytp_comments_enabled():
 def get_all_groups():
     groups = toolkit.get_action('group_list')(
         data_dict={'include_dataset_count': False, 'all_fields': True})
-    from pprint import pprint
-    pprint(groups)
     pkg_group_ids = set(group['id'] for group
                         in c.pkg_dict.get('groups', []))
     return [[group['id'], group['display_name']]
-                            for group in groups if
-                            group['id'] not in pkg_group_ids]
+            for group in groups if
+            group['id'] not in pkg_group_ids]
 
 
 class DataQldThemePlugin(plugins.SingletonPlugin):
