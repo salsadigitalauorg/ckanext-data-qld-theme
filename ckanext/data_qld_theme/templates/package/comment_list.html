@@ -4,6 +4,11 @@
 
 {% resource "data_qld_theme/flag-comment.js" %}
 
+{% if userobj and h.comment_notification_recipients_enabled() and h.threaded_comments_enabled() == true  %}
+    {% resource "comments_js/comment_notifications.js" %}
+    {% resource "comments_js/follow_mute_thread.js" %}
+{% endif %}
+
 {% set content_type = content_type or 'dataset' %}
 
 {% macro comment_form(values={}, empty=False, hidden=True, prefix="", action="add", depth=0) %}
@@ -42,12 +47,37 @@
 
 {% set thread = h.get_comment_thread(pkg_name, content_type) %}
 
+{% if userobj %}
+    {% set user_comment_follows = h.user_comment_follows(userobj.id, thread.id) %}
+{% endif %}
+
 {% set depth = 0 %}
 
 {% macro comment_thread(thread, content_type, depth=0) %}
 
     {% for comment in thread.comments %}
     <div id="comment_{{ comment.id }}" class="comment-wrapper">
+
+        {% if userobj and h.comment_notification_recipients_enabled() and h.threaded_comments_enabled() == true and depth < 1 %}
+            {% set following = comment.id in user_comment_follows %}
+            <div class="thread-notification-actions">
+                <a href="/comments/{{ comment.id }}/follow"
+                    class="btn btn-primary btn-sm comments-follow-thread {% if following %}hidden{% endif %}"
+                    title="Thread followed"
+                    data-module="follow-mute-thread"
+                    data-module-action="follow"
+                    data-module-content="You are now following comments on this thread."
+                    data-module-comment_id="{{ comment.id }}">Follow thread</a>
+                <a href="/comments/{{ comment.id }}/mute"
+                    class="btn btn-primary btn-sm comments-mute-thread {% if not following %}hidden{% endif %}"
+                    title="Thread muted"
+                    data-module="follow-mute-thread"
+                    data-module-action="mute"
+                    data-module-content="You are no longer following comments on this thread."
+                    data-module-comment_id="{{ comment.id }}">Mute thread</a>
+            </div>
+        {% endif %}
+
         <div class="comment comment-{{ comment.state }}">
             <div class="comment-header">
                 <div class="comment-actions">
@@ -137,6 +167,14 @@
 {% endmacro %}
 
 <h3 id="comments">{{ _('Comments') }}</h3>
+
+{% if userobj and h.comment_notification_recipients_enabled() %}
+    {% set comments_followed = thread.id in user_comment_follows %}
+    <div class="notification-actions">
+        <a href="/comments/{{ thread.id }}/follow" class="btn btn-primary comments-follow {% if comments_followed %}hidden{% endif %}">Follow comments</a>
+        <a href="/comments/{{ thread.id }}/mute" class="btn btn-primary comments-mute {% if not comments_followed %}hidden{% endif %}">Mute comments</a>
+    </div>
+{% endif %}
 
 <div class="comment-container">
     {{ comment_thread(thread, content_type) }}
