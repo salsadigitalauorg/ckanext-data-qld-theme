@@ -436,14 +436,3 @@ header.account-masthead .account ul.unstyled li a:focus {
   white-space: normal;
   overflow: hidden;
 }
-
-/*
-    Comment thread notifications
- */
-.thread-notification-actions {
-    text-align: right;
-}
-
-.thread-notification-actions a.btn {
-    border: 1px solid red;
-}
