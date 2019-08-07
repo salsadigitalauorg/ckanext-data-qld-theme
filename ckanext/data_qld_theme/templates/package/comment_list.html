@@ -7,7 +7,6 @@
 {% set content_type = content_type or 'dataset' %}
 {% set thread = h.get_comment_thread(pkg_name, content_type) %}
 {% set depth = 0 %}
-{% set notification_debug = True %}
 {% set notification_actions_enabled = userobj and h.comment_notification_recipients_enabled() %}
 
 {% if notification_actions_enabled %}
@@ -136,10 +135,6 @@
                         {{ comment.content|safe }}
                     </div>
                 {% endif %}
-
-                {% if notification_debug %}
-                    <p>Comment ID: <span style="{{ 'color: green' if comment.id in comments_following }}">{{ comment.id }}</span></p>
-                {% endif %}
             </div>
         </div>
 
@@ -152,16 +147,6 @@
 {% endmacro %}
 
 <h3 id="comments">{{ _('Comments') }}</h3>
-
-{% if notification_actions_enabled and notification_debug %}
-    following_content_item: {{ following_content_item }}
-    <br>
-    comments_following: {{ comments_following }}
-    <br>
-    comments_muted: {{ comments_muted }}
-    <br><br>
-    <p>Content item thread ID: {{ thread_id }}</p>
-{% endif %}
 
 {% if notification_actions_enabled %}
     {% snippet "snippets/content_item_notification_actions.html", following=following_content_item, content_type=content_type, thread_id=thread.id %}
